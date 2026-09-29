@@ -1,0 +1,1 @@
+package vn.iotstar.service;public interface OtpService{void sendRegisterOtp(String e);boolean verifyRegisterOtp(String e,String o);void sendResetPasswordOtp(String e);boolean verifyResetPasswordOtp(String e,String o);}

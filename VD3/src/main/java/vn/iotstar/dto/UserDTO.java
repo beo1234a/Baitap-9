@@ -1,0 +1,4 @@
+package vn.iotstar.dto;
+import jakarta.validation.constraints.*;
+public class UserDTO { private Long id; @NotBlank private String username; @NotBlank @Email private String email; @NotBlank private String fullName; private boolean enabled; private String roleName; private long productCount;
+public Long getId(){return id;} public void setId(Long v){id=v;} public String getUsername(){return username;} public void setUsername(String v){username=v;} public String getEmail(){return email;} public void setEmail(String v){email=v;} public String getFullName(){return fullName;} public void setFullName(String v){fullName=v;} public boolean isEnabled(){return enabled;} public void setEnabled(boolean v){enabled=v;} public String getRoleName(){return roleName;} public void setRoleName(String v){roleName=v;} public long getProductCount(){return productCount;} public void setProductCount(long v){productCount=v;} }

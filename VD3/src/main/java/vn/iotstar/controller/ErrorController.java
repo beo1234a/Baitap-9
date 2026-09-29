@@ -1,0 +1,1 @@
+package vn.iotstar.controller;import org.springframework.stereotype.Controller;import org.springframework.ui.Model;import org.springframework.web.bind.annotation.*;@Controller @RequestMapping("/error") public class ErrorController{@GetMapping public String error(Model m){m.addAttribute("message","Đã xảy ra lỗi.");return "error";}}

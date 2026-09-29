@@ -1,0 +1,1 @@
+package vn.iotstar.service;import vn.iotstar.dto.RegisterDTO;public interface AuthService{void register(RegisterDTO d);boolean verifyRegister(String e,String o);void forgotPassword(String e);boolean verifyResetOtp(String e,String o);void resetPassword(String e,String p);}

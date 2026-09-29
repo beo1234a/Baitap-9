@@ -1,0 +1,29 @@
+<header class="header" th:fragment="header">
+    <a class="brand" th:href="@{/}">IOTSTAR SHOP</a>
+
+    <nav>
+        <a th:href="@{/}">Dashboard</a>
+        <a th:href="@{/products}">Products</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+           th:href="@{/users}">
+            Users
+        </a>
+    </nav>
+
+    <div class="account">
+        <span th:if="${#authorization.expression('isAuthenticated()')}"
+              th:text="${#authentication.name}">
+        </span>
+
+        <form th:if="${#authorization.expression('isAuthenticated()')}"
+              th:action="@{/logout}"
+              method="post">
+            <button class="link-button" type="submit">Logout</button>
+        </form>
+
+        <a th:unless="${#authorization.expression('isAuthenticated()')}"
+           th:href="@{/login}">
+            Login
+        </a>
+    </div>
+</header>

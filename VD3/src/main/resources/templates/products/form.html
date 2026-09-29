@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${mode == 'edit' ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}">
+        Sản phẩm
+    </title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .global-error {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button,
+        .btn {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 th:text="${mode == 'edit' ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}">
+            Thêm sản phẩm
+        </h1>
+
+        <form th:object="${productDTO}"
+              th:action="${mode == 'edit'} ? @{/products/edit/{id}(id=${productDTO.id})} : @{/products/create}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div th:if="${#fields.hasGlobalErrors()}"
+                 class="global-error">
+
+                <p th:each="err : ${#fields.globalErrors()}"
+                   th:text="${err}">
+                </p>
+
+            </div>
+
+            <!-- Tên sản phẩm -->
+            <div class="form-group">
+
+                <label for="name">
+                    Tên sản phẩm
+                </label>
+
+                <input type="text"
+                       id="name"
+                       th:field="*{name}"
+                       placeholder="Nhập tên sản phẩm">
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}">
+                </div>
+
+            </div>
+
+            <!-- Mô tả -->
+            <div class="form-group">
+
+                <label for="description">
+                    Mô tả
+                </label>
+
+                <textarea id="description"
+                          th:field="*{description}"
+                          placeholder="Nhập mô tả sản phẩm"></textarea>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('description')}"
+                     th:errors="*{description}">
+                </div>
+
+            </div>
+
+            <!-- Giá -->
+            <div class="form-group">
+
+                <label for="price">
+                    Giá sản phẩm
+                </label>
+
+                <input type="number"
+                       id="price"
+                       th:field="*{price}"
+                       min="0"
+                       step="0.01"
+                       placeholder="Nhập giá sản phẩm">
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('price')}"
+                     th:errors="*{price}">
+                </div>
+
+            </div>
+
+            <!-- Số lượng -->
+            <div class="form-group">
+
+                <label for="quantity">
+                    Số lượng
+                </label>
+
+                <input type="number"
+                       id="quantity"
+                       th:field="*{quantity}"
+                       min="0"
+                       step="1"
+                       placeholder="Nhập số lượng sản phẩm">
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('quantity')}"
+                     th:errors="*{quantity}">
+                </div>
+
+            </div>
+
+            <!-- Hình ảnh -->
+            <div class="form-group">
+
+                <label for="image">
+                    Hình ảnh
+                </label>
+
+                <input type="file"
+                       id="image"
+                       name="image"
+                       accept="image/*">
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+
+                <button type="submit"
+                        class="btn btn-primary"
+                        th:text="${mode == 'edit' ? 'Cập nhật' : 'Thêm sản phẩm'}">
+                    Thêm sản phẩm
+                </button>
+
+                <a th:href="@{/products}"
+                   class="btn btn-secondary">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

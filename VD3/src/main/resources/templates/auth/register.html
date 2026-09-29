@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+
+<body class="auth-page">
+
+<div class="auth-card">
+
+    <h1>Đăng ký</h1>
+
+    <form th:action="@{/register}"
+          th:object="${registerDTO}"
+          method="post">
+
+        <!-- Lỗi tổng quát -->
+        <div th:if="${#fields.hasGlobalErrors()}"
+             class="alert error">
+
+            <span th:each="e : ${#fields.globalErrors()}"
+                  th:text="${e}">
+            </span>
+
+        </div>
+
+        <!-- Username -->
+        <label>Username</label>
+        <input type="text"
+               th:field="*{username}"
+               required>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('username')}"
+             th:errors="*{username}">
+        </div>
+
+        <!-- Email -->
+        <label>Email</label>
+        <input type="email"
+               th:field="*{email}"
+               required>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}">
+        </div>
+
+        <!-- Họ tên -->
+        <label>Họ và tên</label>
+        <input type="text"
+               th:field="*{fullName}"
+               required>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('fullName')}"
+             th:errors="*{fullName}">
+        </div>
+
+        <!-- Mật khẩu -->
+        <label>Mật khẩu</label>
+        <input type="password"
+               th:field="*{password}"
+               required>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('password')}"
+             th:errors="*{password}">
+        </div>
+
+        <!-- Xác nhận mật khẩu -->
+        <label>Xác nhận mật khẩu</label>
+        <input type="password"
+               th:field="*{confirmPassword}"
+               required>
+
+        <div class="error"
+             th:if="${#fields.hasErrors('confirmPassword')}"
+             th:errors="*{confirmPassword}">
+        </div>
+
+        <button type="submit"
+                class="button full">
+            Đăng ký
+        </button>
+
+    </form>
+
+    <p>
+        Đã có tài khoản?
+        <a th:href="@{/login}">Đăng nhập</a>
+    </p>
+
+</div>
+
+</body>
+</html>

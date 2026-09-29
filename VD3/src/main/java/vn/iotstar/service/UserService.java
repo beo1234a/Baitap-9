@@ -1,0 +1,1 @@
+package vn.iotstar.service;import org.springframework.data.domain.Page;import vn.iotstar.dto.UserDTO;public interface UserService{Page<UserDTO> findAll(String k,int p,int s);UserDTO findById(Long id);UserDTO create(UserDTO d);UserDTO update(Long id,UserDTO d);void delete(Long id);long countUsers();long countProducts(Long id);}
